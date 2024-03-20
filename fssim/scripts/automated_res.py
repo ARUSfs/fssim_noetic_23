@@ -98,7 +98,7 @@ class AutomatedRes:
         self.sim_health = SimHealth()
 
         self.ecu = Ecu()
-        rospy.logerr(self.ecu.state)
+        #rospy.logerr(self.ecu.state)
         # ROS Subscribers
         self.sub_topics_health = rospy.Subscriber('/fssim/topics_health', TopicsHealth, self.callback_topics_health)
         self.sub_state = rospy.Subscriber('/fssim/base_pose_ground_truth', State, self.callback_state)
@@ -194,24 +194,24 @@ class AutomatedRes:
 
         rate = rospy.Rate(10)
         while not rospy.is_shutdown():
-            rospy.logerr(self.ecu.state) 
+            #rospy.logerr(self.ecu.state) 
             # Check if all 4 wheels are inside of track and print warning if not
             is_inside_of_track = self.track_checks.is_car_in_track()
-            rospy.logerr(is_inside_of_track)
+            #rospy.logerr(is_inside_of_track)
             if not is_inside_of_track:
                 rospy.logwarn("Car != in the track")
                 rospy.sleep(0.5)
 
             # Stop sim after max time achieved
             time_expired = self.sim_time_expired()
-            rospy.logerr(time_expired)
+            #rospy.logerr(time_expired)
 
             # If we do too many laps stop as well
             request_stop_given_mission = self.statistics.request_stop()
 
             # Terminate simulation is any of conditions are met
             stop_simulation = not is_inside_of_track or time_expired or self.ecu.state == EcuState.FINNISHED_DISCIPLINE or request_stop_given_mission
-            rospy.logerr(stop_simulation)
+            #rospy.logerr(stop_simulation)
             # Edit: Do not stop simulation
             #stop_simulation = False
 

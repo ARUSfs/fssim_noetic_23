@@ -23,8 +23,4 @@
         <arg name="car_dimensions_file" value="$(arg car_dimensions_file)"/>
     </include>
 
-    <include file="$(find fssim)/launch/rviz.launch"/>
-
-    <include file="$(find fssim)/launch/nodos.launch"/>
-
 </launch>
